@@ -39,16 +39,18 @@ public class BattleStateMachine : MonoBehaviour
           // }
           if(PlayerActions == 2)
           {
-            Debug.Log("Player Phase finishes");
+            Debug.Log("Player Phase Ends");
             PlayerActions = 0;
+            Debug.Log("Enemy does action");
+            Debug.Log("Enemy Phase Ends");
           }
           break;
-        case (PerformAction.ACTION):
-            battleState = PerformAction.PERFORMING;
-          break;
-        case (PerformAction.PERFORMING):
-          battleState = PerformAction.WAITING;
-          break;
+        // case (PerformAction.ACTION):
+        //     battleState = PerformAction.PERFORMING;
+        //   break;
+        // case (PerformAction.PERFORMING):
+        //   battleState = PerformAction.WAITING;
+        //   break;
 
       }
     }
@@ -61,18 +63,22 @@ public class BattleStateMachine : MonoBehaviour
     public void ProtoAttack()
     {
       PlayerActions += 1;
-      Debug.Log("Player Attacks");
+      if(PlayerActions == 1) {Debug.Log("Hero 1 uses Attack"); }
+       else { Debug.Log("Hero 2 uses Attack"); }
     }
 
     public void ProtoMagic()
     {
       PlayerActions += 1;
-      Debug.Log("Player uses Magic");
+      if(PlayerActions == 1) {Debug.Log("Hero 1 uses Magic"); }
+       else { Debug.Log("Hero 2 uses Magic"); }
     }
 
     public void ProtoItem()
     {
       PlayerActions += 1;
-      Debug.Log("Player uses Item");
+      if(PlayerActions == 1) {Debug.Log("Hero 1 uses Item"); }
+       else { Debug.Log("Hero 2 uses Item"); }
+
     }
 }
