@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class BattleStateMachine : MonoBehaviour
 {
   public bool enemyTurn = false;
   public int PlayerActions = 0;
+  public int TurnCount = 0;
   public enum PerformAction
   {
     WAITING,
@@ -30,6 +33,7 @@ public class BattleStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      if(TurnCount >= 4){ SceneManager.LoadScene("WinScreen"); }
       switch (battleState)
       {
         case (PerformAction.WAITING):
@@ -41,6 +45,7 @@ public class BattleStateMachine : MonoBehaviour
           {
             Debug.Log("Player Phase Ends");
             PlayerActions = 0;
+            TurnCount += 1;
             Debug.Log("Enemy does action");
             Debug.Log("Enemy Phase Ends");
           }
