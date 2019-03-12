@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class PlayerState : MonoBehaviour
 {
     public AllyBase ally;
     private BattleStateMachine Battle;
+    public TextMeshProUGUI currentHPText;
+    public TextMeshProUGUI maxHPText;
+
 
 
     public enum TurnState
