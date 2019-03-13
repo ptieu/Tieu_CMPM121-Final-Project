@@ -10,4 +10,10 @@ public class AllyBase
   public float maxHealth;
   public float currentHealth;
 
+  public float maxMP;
+  public float currentMP;
+
+  public bool isDead = false;
+  public bool hasMana = true;
+
 }

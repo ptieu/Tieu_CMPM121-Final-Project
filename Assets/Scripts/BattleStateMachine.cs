@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class BattleStateMachine : MonoBehaviour
@@ -9,6 +10,10 @@ public class BattleStateMachine : MonoBehaviour
   public bool enemyTurn = false;
   public int PlayerActions = 0;
   public int TurnCount = 0;
+  public EnemyState enemy1State;
+  public PlayerState hero1State;
+  public PlayerState hero2State;
+
   public enum PerformAction
   {
     WAITING,
@@ -18,14 +23,14 @@ public class BattleStateMachine : MonoBehaviour
 
   public List<TurnManager> ActionList = new List<TurnManager>();
   public List<GameObject> Allies = new List<GameObject>();
-  public List<GameObject> Enemies = new List<GameObject>();
+  //public List<GameObject> Enemies = new List<GameObject>();
 
 
   public PerformAction battleState;
     void Start()
     {
       battleState = PerformAction.WAITING;
-      Enemies.AddRange (GameObject.FindGameObjectsWithTag("Monster"));
+      //Enemies.AddRange (GameObject.FindGameObjectsWithTag("Monster"));
       Allies.AddRange (GameObject.FindGameObjectsWithTag("Ally"));
 
     }
@@ -33,7 +38,9 @@ public class BattleStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      if(TurnCount >= 4){ SceneManager.LoadScene("WinScreen"); }
+      if(enemy1State.enemy.currentHealth <= 0){ SceneManager.LoadScene("WinScreen"); } // Player wins if boss's health reaches 0
+      if(hero1State.ally.isDead == true && hero2State.ally.isDead == true) { SceneManager.LoadScene("GameOver"); } // Player loses when both heroes are dead
+
       switch (battleState)
       {
         case (PerformAction.WAITING):
@@ -43,12 +50,12 @@ public class BattleStateMachine : MonoBehaviour
           // }
           if(PlayerActions == 2)
           {
-            Debug.Log("Player Phase Ends");
             PlayerActions = 0;
             TurnCount += 1;
-            Debug.Log("Enemy does action");
-            Debug.Log("Enemy Phase Ends");
+            enemyAttack();
+
           }
+
           break;
         // case (PerformAction.ACTION):
         //     battleState = PerformAction.PERFORMING;
@@ -58,6 +65,7 @@ public class BattleStateMachine : MonoBehaviour
         //   break;
 
       }
+        enemy1State.healthBar.fillAmount = enemy1State.enemy.currentHealth/enemy1State.enemy.maxHealth;
     }
 
     public void ProcessActions(TurnManager action)
@@ -68,22 +76,41 @@ public class BattleStateMachine : MonoBehaviour
     public void ProtoAttack()
     {
       PlayerActions += 1;
-      if(PlayerActions == 1) {Debug.Log("Hero 1 uses Attack"); }
-       else { Debug.Log("Hero 2 uses Attack"); }
+      if(PlayerActions == 1 && hero1State.ally.isDead == false) { enemy1State.enemy.currentHealth -= Random.Range(80, 100); }
+       else if(PlayerActions == 2 && hero2State.ally.isDead == false) {enemy1State.enemy.currentHealth -= Random.Range(80, 100); }
+        if (PlayerActions == 0 && hero1State.ally.isDead == true) { PlayerActions += 1; }
+        if (PlayerActions == 1 && hero2State.ally.isDead == true) { PlayerActions += 1; }
+
     }
 
     public void ProtoMagic()
     {
       PlayerActions += 1;
-      if(PlayerActions == 1) {Debug.Log("Hero 1 uses Magic"); }
-       else { Debug.Log("Hero 2 uses Magic"); }
+      if(PlayerActions == 1 && hero1State.ally.isDead == false && hero1State.ally.hasMana == true) {enemy1State.enemy.currentHealth -= Random.Range(150, 200); hero1State.ally.currentMP -= 50;  }
+       else if (PlayerActions == 2 && hero2State.ally.isDead == false && hero2State.ally.hasMana == true) { enemy1State.enemy.currentHealth -= Random.Range(150, 200); hero2State.ally.currentMP -= 50; }
+        if (PlayerActions == 0 && hero1State.ally.isDead == true) { PlayerActions += 1; }
+        if (PlayerActions == 1 && hero2State.ally.isDead == true) { PlayerActions += 1; }
+
     }
 
     public void ProtoItem()
     {
       PlayerActions += 1;
-      if(PlayerActions == 1) {Debug.Log("Hero 1 uses Item"); }
-       else { Debug.Log("Hero 2 uses Item"); }
+        if (PlayerActions == 1 && hero1State.ally.isDead == false) { hero1State.ally.currentHealth += 150; }
+            else if (PlayerActions == 2 && hero2State.ally.isDead == false) { hero2State.ally.currentHealth += 100; }
+
+        if (PlayerActions == 0 && hero1State.ally.isDead == true) { PlayerActions += 1; }
+        if (PlayerActions == 1 && hero2State.ally.isDead == true) { PlayerActions += 1; }
+
+    }
+
+    public void enemyAttack()
+        {
+        int x = Random.Range(0, 2);
+        if(x == 0 && hero1State.ally.isDead == false) { hero1State.ally.currentHealth -= Random.Range(60, 90); }
+            else if (hero2State.ally.isDead == false) { hero2State.ally.currentHealth -= Random.Range(90, 125); }
+        if (x == 1 && hero2State.ally.isDead == false) { hero2State.ally.currentHealth -= Random.Range(90, 125); }
+        else if (hero1State.ally.isDead == false) { hero1State.ally.currentHealth -= Random.Range(60, 90); }
 
     }
 }

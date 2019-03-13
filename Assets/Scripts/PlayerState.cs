@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class PlayerState : MonoBehaviour
 {
     public AllyBase ally;
     private BattleStateMachine Battle;
-    public TextMeshProUGUI currentHPText;
-    public TextMeshProUGUI maxHPText;
-
-
+    public TextMeshProUGUI HPText;
+    public TextMeshProUGUI MPText;
+    public TextMeshProUGUI NameText;
+    public Image healthBar;
 
     public enum TurnState
     {
@@ -29,6 +30,11 @@ public class PlayerState : MonoBehaviour
     {
       currentState = TurnState.PROCESSING;
       Battle = GameObject.Find("BattleManager").GetComponent<BattleStateMachine>();
+
+      HPText.text = "HP: " + ally.currentHealth.ToString() + " / " + ally.maxHealth.ToString();
+      MPText.text = "MP: " + ally.currentMP.ToString() + " / " + ally.maxMP.ToString();
+      NameText.text = ally.name;
+
 
     }
     void Update ()
@@ -58,6 +64,15 @@ public class PlayerState : MonoBehaviour
 
           break;
       }
+        if(ally.currentHealth > ally.maxHealth) { ally.currentHealth = ally.maxHealth; }
+        if(ally.currentHealth < 0) { ally.currentHealth = 0; }
+        HPText.text = "HP: " + ally.currentHealth.ToString() + " / " + ally.maxHealth.ToString();
+        MPText.text = "MP: " + ally.currentMP.ToString() + " / " + ally.maxMP.ToString();
+        if(ally.currentHealth <= 0) { ally.isDead = true; }
+        if(ally.currentMP <= 0) { ally.hasMana = false; }
+        healthBar.fillAmount = ally.currentHealth / ally.maxHealth;
+
+
     }
 
     void InsertAction()
@@ -65,7 +80,7 @@ public class PlayerState : MonoBehaviour
       TurnManager myAction = new TurnManager();
       myAction.ActiveCharacter = ally.name;
       myAction.AttackingGameObject = this.gameObject;
-      myAction.Target = Battle.Enemies[Random.Range(0, Battle.Enemies.Count)];
+      //myAction.Target = Battle.Enemies[Random.Range(0, Battle.Enemies.Count)];
       Battle.ProcessActions(myAction);
     }
 }
