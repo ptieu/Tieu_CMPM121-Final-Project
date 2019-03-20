@@ -11,4 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
     guid: 71b1d53e2f1fab841a8b927728ac1edb
+  - enabled: 1
+    path: Assets/Scenes/Overworld.unity
+    guid: 55b41c0f7d84b864e87b56ce148f3ccc
+  - enabled: 1
+    path: Assets/Scenes/Battle.unity
+    guid: 6b55e8b3c3683ad4e8bc7dc9df0be36f
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 05cfd894060e65645b48809ab6a968df
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: 3c0273f35e614b941b30fd2ef432d8f8
   m_configObjects: {}
