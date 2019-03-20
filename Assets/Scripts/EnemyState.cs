@@ -9,6 +9,7 @@ public class EnemyState : MonoBehaviour
     public EnemyBase enemy;
     private BattleStateMachine Battle;
     public Image healthBar;
+    public Animator m_Animator;
 
 
 
@@ -28,6 +29,8 @@ public class EnemyState : MonoBehaviour
     {
       currentState = TurnState.PROCESSING;
       Battle = GameObject.Find("BattleManager").GetComponent<BattleStateMachine>();
+      m_Animator= gameObject.GetComponent<Animator>();
+
     }
     void Update ()
     {

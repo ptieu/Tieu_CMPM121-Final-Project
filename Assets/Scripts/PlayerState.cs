@@ -14,7 +14,7 @@ public class PlayerState : MonoBehaviour
     public TextMeshProUGUI NameText;
     public Image healthBar;
     public Animator m_Animator;
-    public bool attacking;
+
 
     public enum TurnState
     {
@@ -38,7 +38,7 @@ public class PlayerState : MonoBehaviour
       NameText.text = ally.name;
 
       m_Animator= gameObject.GetComponent<Animator>();
-      attacking = false;
+
     }
     void Update ()
     {
