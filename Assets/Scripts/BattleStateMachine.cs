@@ -14,6 +14,7 @@ public class BattleStateMachine : MonoBehaviour
   public PlayerState hero1State;
   public PlayerState hero2State;
 
+
   public enum PerformAction
   {
     WAITING,
@@ -33,6 +34,7 @@ public class BattleStateMachine : MonoBehaviour
       //Enemies.AddRange (GameObject.FindGameObjectsWithTag("Monster"));
       Allies.AddRange (GameObject.FindGameObjectsWithTag("Ally"));
 
+      
     }
 
     // Update is called once per frame
@@ -44,28 +46,41 @@ public class BattleStateMachine : MonoBehaviour
       switch (battleState)
       {
         case (PerformAction.WAITING):
-          // if(ActionList.Count > 0) // if there are any chosen actions for that turn
-          // {
-          //   battleState = PerformAction.ACTION;
-          // }
+   
           if(PlayerActions == 2)
           {
             PlayerActions = 0;
             TurnCount += 1;
             enemyAttack();
+            hero1State.attacking = false;
+            hero2State.attacking = false;
 
           }
 
-          break;
-        // case (PerformAction.ACTION):
-        //     battleState = PerformAction.PERFORMING;
-        //   break;
-        // case (PerformAction.PERFORMING):
-        //   battleState = PerformAction.WAITING;
-        //   break;
+                break;
+
 
       }
         enemy1State.healthBar.fillAmount = enemy1State.enemy.currentHealth/enemy1State.enemy.maxHealth;
+
+        // Plays attack animation for appropriate hero when attack button is pressed
+        if (hero1State.attacking == true) 
+        {
+            hero1State.m_Animator.SetBool("attacking", true);
+        } else
+        {
+            hero1State.m_Animator.SetBool("attacking", false);
+        }
+
+        if (hero2State.attacking == true) 
+        {
+            hero2State.m_Animator.SetBool("attacking", true);
+
+        }
+        else
+        {
+            hero2State.m_Animator.SetBool("attacking", false);
+        }
     }
 
     public void ProcessActions(TurnManager action)
@@ -76,8 +91,8 @@ public class BattleStateMachine : MonoBehaviour
     public void ProtoAttack()
     {
       PlayerActions += 1;
-      if(PlayerActions == 1 && hero1State.ally.isDead == false) { enemy1State.enemy.currentHealth -= Random.Range(80, 100); }
-       else if(PlayerActions == 2 && hero2State.ally.isDead == false) {enemy1State.enemy.currentHealth -= Random.Range(80, 100); }
+      if(PlayerActions == 1 && hero1State.ally.isDead == false) { enemy1State.enemy.currentHealth -= Random.Range(80, 100); hero1State.attacking = true; }
+       else if(PlayerActions == 2 && hero2State.ally.isDead == false) {enemy1State.enemy.currentHealth -= Random.Range(80, 100); hero2State.attacking = true; }
         if (PlayerActions == 0 && hero1State.ally.isDead == true) { PlayerActions += 1; }
         if (PlayerActions == 1 && hero2State.ally.isDead == true) { PlayerActions += 1; }
 

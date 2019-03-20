@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: ff8b05c7689bda5459e9399b833708d5
+guid: ba9ad3dd3f514024b93ebd02d6bcece7
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: Armature
-    100002: Cube
+    100002: Cylinder
     100004: Hair
-    100006: Hero1
-    100008: //RootNode
+    100006: //RootNode
+    100008: Hero2
     100010: Hip
     100012: Hip.001
     100014: Hip.003
@@ -24,16 +24,15 @@ ModelImporter:
     100036: LowerLeg.R_end
     100038: Shoulder.L
     100040: Shoulder.R
-    100042: Sword
-    100044: Torso2
-    100046: UpperArm.L
-    100048: UpperArm.R
-    100050: UpperLeg.L
-    100052: UpperLeg.R
+    100042: Torso2
+    100044: UpperArm.L
+    100046: UpperArm.R
+    100048: UpperLeg.L
+    100050: UpperLeg.R
     400000: Armature
-    400002: Cube
+    400002: Cylinder
     400004: Hair
-    400006: Hero1
+    400006: Hero2
     400008: //RootNode
     400010: Hip
     400012: Hip.001
@@ -51,29 +50,26 @@ ModelImporter:
     400036: LowerLeg.R_end
     400038: Shoulder.L
     400040: Shoulder.R
-    400042: Sword
-    400044: Torso2
-    400046: UpperArm.L
-    400048: UpperArm.R
-    400050: UpperLeg.L
-    400052: UpperLeg.R
-    2100000: Sword
-    2100002: Blade
-    2100004: Hero1Material
+    400042: Torso2
+    400044: UpperArm.L
+    400046: UpperArm.R
+    400048: UpperLeg.L
+    400050: UpperLeg.R
+    2100000: Staff
+    2100002: Orb
+    2100004: Hair
     2100006: Material.001
-    2100008: HeroHair
-    2300000: Cube
-    2300002: Sword
-    3300000: Cube
-    3300002: Sword
-    4300000: Sword
-    4300002: Cube
-    4300004: Hero1
-    4300006: Hair
-    7400000: Armature|Idle
+    2300000: Cylinder
+    3300000: Cylinder
+    4300000: Cylinder
+    4300002: Hair
+    4300004: Hero2
+    7400000: Armature|Attack
+    7400002: Armature|Idle
+    7400004: Armature|Run
     9500000: //RootNode
     13700000: Hair
-    13700002: Hero1
+    13700002: Hero2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -103,8 +99,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|Idle
-      takeName: Armature|Idle
+      name: Armature|Attack
+      takeName: Armature|Attack
       firstFrame: 0
       lastFrame: 60
       wrapMode: 0
@@ -115,6 +111,62 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Idle
+      takeName: Armature|Idle
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Run
+      takeName: Armature|Run
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
